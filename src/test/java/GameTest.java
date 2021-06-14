@@ -9,24 +9,31 @@ public class GameTest {
 
     @Test
     public void Roll_Should_ReturnNumberOfKnockedPins(){
+
         game.roll(5);
+
         assertEquals(5, game.score());
     }
 
     @Test
     public void Roll_3Times_ShouldReturnNumberOfKnockedPins(){
+
         game.roll(2);
         game.roll(3);
         game.roll(4);
+
         assertEquals(9, game.score());
     }
 
     @Test
     public void Roll_Spare_ShouldReturnNumberOfPointsForSpare(){
-        game.roll(5);
-        game.roll(5);
-        game.roll(5);
 
-        assertEquals(20, game.score());
+        game.roll(5);
+        game.roll(5);
+        game.roll(5);
+        game.roll(4);
+        game.roll(10);
+
+        assertEquals(34, game.score());
     }
 }
