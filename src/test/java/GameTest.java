@@ -20,4 +20,13 @@ public class GameTest {
         game.roll(4);
         assertEquals(9, game.score());
     }
+
+    @Test
+    public void Roll_Spare_ShouldReturnNumberOfPointsForSpare(){
+        game.roll(5);
+        game.roll(5);
+        game.roll(5);
+
+        assertEquals(20, game.score());
+    }
 }
