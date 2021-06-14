@@ -3,39 +3,48 @@ import java.util.ArrayList;
 public class Game {
 
     private ArrayList<Integer> rolls;
-    private int roll;
+    private int knockedPins;
     private int score;
+
+    public int getKnockedPins() {
+        return knockedPins;
+    }
 
     public Game() {
         this.rolls = new ArrayList();
-        this.roll = 0;
+        this.knockedPins = 0;
         this.score = 0;
     }
 
     public void roll(int knockedPins){
         rolls.add(knockedPins);
-        roll++;
+        this.knockedPins += knockedPins;
     }
 
     private void calculateScore(){
-        for (int index = 0; index < roll; index += 2) {
-            if (index + 2 < roll ) {
-                int frameKnockedPins = rolls.get(index) + rolls.get(index + 1);
-                if (index % 2 == 0 && frameKnockedPins == 10) {
-                    this.score += getScoreForSpare(index);
-                } else {
-                    this.score += frameKnockedPins;
-                }
-            }else if(index + 1 < roll){
-                this.score += rolls.get(index) + rolls.get(index + 1);
-            }else{
-                this.score += rolls.get(index);
+
+        int roll = 0;
+
+        for(int frame = 0; frame < 10; frame++){
+            if(isStrike(roll)){
+                this.score += rolls.get(roll) + rolls.get(roll + 1) + rolls.get(roll + 2);
+                roll++;
+            }else if(isSpare(roll)){
+                this.score += 10 + rolls.get(roll + 2);
+                roll += 2;
+            }else {
+                this.score += rolls.get(roll) + rolls.get(roll + 1);
+                roll += 2;
             }
         }
     }
 
-    private int getScoreForSpare(int frameStartIndex){
-        return rolls.get(frameStartIndex) + rolls.get(frameStartIndex + 1) + rolls.get(frameStartIndex + 2);
+    private boolean isSpare(int roll){
+        return rolls.get(roll) + rolls.get(roll + 1) == 10;
+    }
+
+    private boolean isStrike(int roll){
+        return rolls.get(roll) == 10;
     }
 
     public int score(){
