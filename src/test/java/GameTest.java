@@ -36,4 +36,14 @@ public class GameTest {
 
         assertEquals(34, game.score());
     }
+
+    @Test
+    public void Roll_Strike_ShouldReturnNumberOfPointsForStrike(){
+
+        game.roll(10);
+        game.roll(3);
+        game.roll(2);
+
+        assertEquals(20, game.score());
+    }
 }
